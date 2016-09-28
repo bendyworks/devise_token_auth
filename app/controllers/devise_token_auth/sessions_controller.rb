@@ -26,7 +26,7 @@ module DeviseTokenAuth
           q = "BINARY " + q
         end
 
-        @resource = resource_class.where(q, q_value).first
+        @resource = resource_class.find_for_database_authentication(field => q_value)
       end
 
       if @resource and valid_params?(field, q_value) and @resource.valid_password?(resource_params[:password]) and (!@resource.respond_to?(:active_for_authentication?) or @resource.active_for_authentication?)
